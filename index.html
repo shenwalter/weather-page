@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="refresh" content="600">
+  <meta http-equiv="refresh" content="600"><!-- refresh every 10 min -->
   <!-- Load Open Sans for the time display -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
   <style>
@@ -11,13 +11,20 @@
       margin: 0;
       padding: 0;
     }
-    /* Current time styling */
-    #current-time {
-      font-size: 12px;
+    /* Container for both timestamps, centered over the widget */
+    #info-bar {
+      width: 320px;               /* match widget width */
+      margin: 0px auto 0px auto; /* vertically spaced, horizontally centered */
+      display: flex;
+      justify-content: space-between; /* left + right alignment */
       font-family: 'Open Sans', sans-serif;
       color: #fff;
-      text-align: center;
-      margin: 3px 0;
+    }
+    #last-updated {
+      font-size: 12px;
+    }
+    #current-time {
+      font-size: 16px;
     }
     /* force the widget to 320×240 and center it */
     .weather-container {
@@ -34,8 +41,11 @@
   </style>
 </head>
 <body>
-  <!-- Current time display -->
-  <div id="current-time"></div>
+  <!-- Timestamps on same line, split left/right -->
+  <div id="info-bar">
+    <span id="last-updated"></span>
+    <span id="current-time"></span>
+  </div>
 
   <div class="weather-container">
     <a
@@ -51,6 +61,31 @@
   </div>
 
   <script>
+    // Capture load timestamp
+    const loadedAt = new Date();
+
+    // Update the live clock
+    function updateTime() {
+      const now = new Date();
+      document.getElementById('current-time').textContent =
+        now.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+    }
+
+    // Set the “Last updated” once
+    function setLastUpdated() {
+      const fmt = loadedAt.toLocaleTimeString([], {
+        hour: 'numeric', minute: '2-digit'
+      });
+      document.getElementById('last-updated').textContent =
+        'Last updated: ' + fmt;
+    }
+
+    updateTime();
+    setLastUpdated();
+    setInterval(updateTime, 1000);
+  </script>
+
+  <script>
     // Weather widget loader
     !function(d,s,id){
       var js,fjs=d.getElementsByTagName(s)[0];
@@ -61,18 +96,6 @@
         fjs.parentNode.insertBefore(js,fjs);
       }
     }(document,'script','weatherwidget-io-js');
-
-    // Time updater
-    function updateTime() {
-      const now = new Date();
-      const formatted = now.toLocaleTimeString([], {
-        hour: 'numeric',
-        minute: '2-digit'
-      });
-      document.getElementById('current-time').textContent = formatted;
-    }
-    updateTime();
-    setInterval(updateTime, 1000);
   </script>
 </body>
 </html>
