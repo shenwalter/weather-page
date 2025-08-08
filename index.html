@@ -1,23 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!--   <meta http-equiv="refresh" content="600"> -->
   <meta charset="utf-8">
+  <!-- Load Open Sans for the time display -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
   <style>
-    /* force the widget to 320×240 */
-    .weather-container {
-      width: 320px;
-      height: 240px;
-      overflow: hidden;
+    body {
+      background-color: #000;
+      margin: 0;
+      padding: 0;
     }
-    .weather-container .weatherwidget-io {
-      display: block !important;
-      width: 320px !important;
-      height: 240px !important;
+    /* Current time styling */
+    #current-time {
+      font-size: 12px;
+      font-family: 'Open Sans', sans-serif;
+      color: #fff;
+      text-align: center;
+      margin: 1px 0;
     }
+
   </style>
 </head>
 <body>
+  <!-- Current time display -->
+  <div id="current-time"></div>
+
   <div class="weather-container">
     <a
       class="weatherwidget-io"
@@ -26,9 +33,13 @@
       data-label_2="WEATHER"
       data-font="Open Sans"
       data-icons="Climacons"
-      data-theme="dark">CAMBRIDGE WEATHER</a>
+      data-theme="dark">
+      CAMBRIDGE WEATHER
+    </a>
   </div>
+
   <script>
+    // Weather widget loader
     !function(d,s,id){
       var js,fjs=d.getElementsByTagName(s)[0];
       if(!d.getElementById(id)){
@@ -38,6 +49,18 @@
         fjs.parentNode.insertBefore(js,fjs);
       }
     }(document,'script','weatherwidget-io-js');
+
+    // Time updater
+    function updateTime() {
+      const now = new Date();
+      const formatted = now.toLocaleTimeString([], {
+        hour: 'numeric',
+        minute: '2-digit'
+      });
+      document.getElementById('current-time').textContent = formatted;
+    }
+    updateTime();
+    setInterval(updateTime, 1000);
   </script>
 </body>
 </html>
