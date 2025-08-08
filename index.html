@@ -13,7 +13,7 @@
     }
     /* Container for both timestamps, centered over the widget */
     #info-bar {
-      width: 280px;               /* match widget width */
+      width: 320px;               /* match widget width */
       margin: 0px auto 0px auto; /* vertically spaced, horizontally centered */
       display: flex;
       justify-content: space-between; /* left + right alignment */
@@ -64,17 +64,21 @@
     // Capture load timestamp
     const loadedAt = new Date();
 
-    // Update the live clock
     function updateTime() {
       const now = new Date();
       document.getElementById('current-time').textContent =
-        now.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+        now.toLocaleTimeString('en-US', {
+          hour: 'numeric',
+          minute: '2-digit',
+          hour12: true      // <- force AM/PM
+        });
     }
 
-    // Set the “Last updated” once
     function setLastUpdated() {
-      const fmt = loadedAt.toLocaleTimeString([], {
-        hour: 'numeric', minute: '2-digit'
+      const fmt = loadedAt.toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true       // <- and here too
       });
       document.getElementById('last-updated').textContent =
         'Last updated: ' + fmt;
