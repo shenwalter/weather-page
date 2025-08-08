@@ -9,3 +9,5 @@ Using [2.4inch RPi Display](https://www.lcdwiki.com/2.4inch_RPi_Display).
 
 See https://maker-tutorials.com/en/auto-start-midori-browser-in-fullscreen-kiosk-modus-raspberry-pi-linux/
 and https://www.reddit.com/r/raspberry_pi/comments/xtxost/how_to_start_a_full_screen_midori_browser_tab/mi4sw2s/
+
+weather html page is partially ChatGPT-tweaked (formatting and div-bar alignment...); widget is from Weatherwidget.io.
